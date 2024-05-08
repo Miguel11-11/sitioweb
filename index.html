@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Salud</title>
+    <style>
+        body {
+            background-color: #B3E5FC;
+            background-image: url(https://img.freepik.com/foto-gratis/doctora-informe-medico_23-2148168360.jpg?w=740&t=st=1714530311~exp=1714530911~hmac=a1490571b79a6a2518a6ca90bfb1f9ac3ac40083a6d4f7d56502b42d5c9b8374), url(https://scontent.fbga2-1.fna.fbcdn.net/v/t39.30808-6/301381826_478789470924887_5449976393666744965_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeG9mDwsr8dfNQdXrNUVqTsuxdtKPPlnwJ_F20o8-WfAnyIy5cchT6TaV9feFCFUyDWqb-jYLIZQ7eWOwVZI4h0e&_nc_ohc=qPf0rTnd9EwQ7kNvgFOHiuk&_nc_ht=scontent.fbga2-1.fna&oh=00_AfDyZrBnaHwGzvisTH6aob-4jkO6qzJm9_K_uy_Z6tbXIA&oe=66376321);
+            background-repeat: no-repeat;
+            background-position: top right, top left;
+            background-size: auto 40%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .section {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            font-size: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .list {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .list li {
+            margin-bottom: 5px;
+        }
+
+        .disponible {
+            color: green;
+        }
+
+        .agotado {
+            color: red;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="time"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="section registro-container">
+        <h2>Registro</h2>
+        <form>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            
+            <label for="email_registro">Correo electrónico:</label>
+            <input type="email" id="email_registro" name="email_registro" required>
+            
+            <label for="password_registro">Contraseña:</label>
+            <input type="password" id="password_registro" name="password_registro" required>
+            
+            <button type="submit" class="button">Registrarse</button>
+        </form>
+    </div>
+
+    <div class="section login-container">
+        <h2>Iniciar Sesión</h2>
+        <form>
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <div class="section citas-container">
+        <h2>Generar Cita</h2>
+        <form>
+            <div class="form-group">
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="form-group">
+                <label for="hora">Hora:</label>
+                <input type="time" id="hora" name="hora" required>
+            </div>
+            <div class="form-group">
+                <label for="especialidad">Especialidad:</label>
+                <select id="especialidad" name="especialidad" required>
+                    <option value="">Seleccionar</option>
+                    <option value="medicina_general">Medicina General</option>
+                    <option value="pediatria">Pediatría</option>
+                    <option value="ginecologia">Ginecología</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="button">Generar Cita</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="section laboratorio-container">
+        <h2>Servicios</h2>
+        <div class="service-info">
+            <h3>Medicamentos (Mostrar Estado)</h3>
+            <button class="button" id="boton-medicamentos">Mostrar Medicamentos</button>
+            <ul class="list medicamentos-list"></ul>
+        </div>
+        <div class="service-info">
+            <h3>Laboratorios</h3>
+        </div>
+        <div class="service-info">
+            <h3>Clínicas Disponibles (Mostrar Clínicas Cercanas)</h3>
+            <button class="button" id="boton-clinicas">Mostrar Clínicas Cercanas</button>
+            <ul class="list clinicas-cercanas"></ul>
+        </div>
+    </div>
+
+    <div class="section pago-container">
+        <h2>Métodos de Pago</h2>
+        <form>
+            <div class="form-group">
+                <label for="metodos-pago">Métodos de Pago:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="nequi" name="metodos_pago" value="Nequi">
+                    <label for="nequi">Nequi</label>
+                    <input type="checkbox" id="daviplata" name="metodos_pago" value="Daviplata">
+                    <label for="daviplata">Daviplata</label>
+                    <input type="checkbox" id="efecty" name="metodos_pago" value="Efecty">
+                    <label for="efecty">Efecty</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="valor">Valor a Pagar:</label>
+                <input type="number" id="valor" name="valor_pago" required>
+            </div>
+            <div class="form-group">
+                <button type="button" class="button">Cancelar</button>
+                <button type="submit" class="button">Generar Recibo</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        var citasContainer = document.querySelector('.citas-container');
+        var laboratorioContainer = document.querySelector('.laboratorio-container');
+        var pagoContainer = document.querySelector('.pago-container');
+
+        citasContainer.style.display = 'none';
+        laboratorioContainer.style.display = 'none';
+        pagoContainer.style.display = 'none';
+
+        function mostrarContenido() {
+            citasContainer.style.display = 'block';
+            laboratorioContainer.style.display = 'block';
+            pagoContainer.style.display = 'block';
+        }
+
+        document.querySelector('.login-container form').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            mostrarContenido();
+        });
+
+        function mostrarMedicamentos() {
+            var medicamentos = [
+                { nombre: "Acetaminofén", estado: "disponible" },
+                { nombre: "Ibuprofeno", estado: "disponible" },
+                { nombre: "Dihidrocodeína", estado: "agotado" },
+                { nombre: "Naproxeno", estado: "disponible" }
+            ];
+            var medicamentosContainer = document.querySelector('.medicamentos-list');
+            medicamentosContainer.innerHTML = "<h3>Medicamentos:</h3><ul>";
+            medicamentos.forEach(function(medicamento) {
+                var estado = (medicamento.estado === "disponible") ? "<span class='disponible'>(disponible)</span>" : "<span class='agotado'>(agotado)</span>";
+                medicamentosContainer.innerHTML += "<li>" + medicamento.nombre + " " + estado + "</li>";
+            });
+            medicamentosContainer.innerHTML += "</ul>";
+        }
+
+        document.getElementById('boton-medicamentos').addEventListener('click', mostrarMedicamentos);
+
+        function mostrarClinicasCercanas() {
+            var clinicasContainer = document.querySelector('.clinicas-cercanas');
+            clinicasContainer.innerHTML = "<h3>Clínicas Cercanas:</h3><ul>";
+            var clinicas = ["Clinica Buenos Aires", "Clinica San Lazaro", "Clinica Andes"];
+            clinicas.forEach(function(clinica) {
+                clinicasContainer.innerHTML += "<li>" + clinica + "</li>";
+            });
+            clinicasContainer.innerHTML += "</ul>";
+        }
+
+        document.getElementById('boton-clinicas').addEventListener('click', mostrarClinicasCercanas);
+    };
+</script>
+
+</body>
+</html>

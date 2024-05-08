@@ -1,0 +1,26 @@
+/* Estilos para el contenedor de Métodos de Pago */
+.pago-container {
+    width: 30%;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los grupos de casillas de verificación */
+.checkbox-group {
+    display: flex;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.checkbox-group label {
+    margin-right: 15px;
+}
+
+/* Estilos para el campo de entrada del valor a pagar */
+#valor {
+    width: calc(100% - 22px); /* Considerando el padding y el borde */
+}
